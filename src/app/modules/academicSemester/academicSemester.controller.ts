@@ -33,8 +33,30 @@ const getByIdFromDb = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
+const updateByIdIntoDb = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await AcademicSemesterService.updateByIdIntoDb(req);
+
+    sendResponse(res, result);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteByIdIntoDb = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await AcademicSemesterService.deleteByIdIntoDb(req);
+
+    sendResponse(res, result);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const AcademicSemesterController = {
   insertIntoDb,
   getAllFromDb,
-  getByIdFromDb
+  getByIdFromDb,
+  updateByIdIntoDb,
+  deleteByIdIntoDb
 };

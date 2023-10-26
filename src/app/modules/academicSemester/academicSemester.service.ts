@@ -32,8 +32,34 @@ const getByIdFromDb = async (req: Request): Promise<IGenericResponse> => {
   return response;
 };
 
+const updateByIdIntoDb = async (req: Request): Promise<IGenericResponse> => {
+  const { id } = req.params;
+  const response: IGenericResponse = await CoreService.patch(
+    `/academic-semesters/${id}`,
+    req.body,
+    {
+      headers: {
+        Authorization: req.headers.authorization
+      }
+    }
+  );
+  return response;
+};
+
+const deleteByIdIntoDb = async (req: Request): Promise<IGenericResponse> => {
+  const { id } = req.params;
+  const response: IGenericResponse = await CoreService.delete(`/academic-semesters/${id}`, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+  return response;
+};
+
 export const AcademicSemesterService = {
   insertIntoDb,
   getAllFromDb,
-  getByIdFromDb
+  getByIdFromDb,
+  updateByIdIntoDb,
+  deleteByIdIntoDb
 };
