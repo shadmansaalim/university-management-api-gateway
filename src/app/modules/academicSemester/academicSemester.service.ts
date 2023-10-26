@@ -1,9 +1,30 @@
 // Imports
 import { CoreService } from '../../../shared/axios';
 import { Request } from 'express';
+import { IGenericResponse } from '../../../interfaces/common';
 
-const insertIntoDb = async (req: Request) => {
-  const response = await CoreService.post('/academic-semesters', req.body, {
+const insertIntoDb = async (req: Request): Promise<IGenericResponse> => {
+  const response: IGenericResponse = await CoreService.post('/academic-semesters', req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+  return response;
+};
+
+const getAllFromDb = async (req: Request): Promise<IGenericResponse> => {
+  const response: IGenericResponse = await CoreService.get('/academic-semesters', {
+    params: req.query,
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+  return response;
+};
+
+const getByIdFromDb = async (req: Request): Promise<IGenericResponse> => {
+  const { id } = req.params;
+  const response: IGenericResponse = await CoreService.get(`/academic-semesters/${id}`, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -12,5 +33,7 @@ const insertIntoDb = async (req: Request) => {
 };
 
 export const AcademicSemesterService = {
-  insertIntoDb
+  insertIntoDb,
+  getAllFromDb,
+  getByIdFromDb
 };
