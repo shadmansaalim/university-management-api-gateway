@@ -1,0 +1,20 @@
+//Imports
+import httpStatus from 'http-status';
+import { IGenericErrorResponse } from '../interfaces/common';
+
+export default function handleZodError(error: any): IGenericErrorResponse {
+  const statusCode = httpStatus.BAD_REQUEST;
+  const message = 'Validation Error';
+  const errorMessages = error.issues.map((issue: any) => {
+    return {
+      path: issue.path[issue.path.length - 1],
+      message: issue.message
+    };
+  });
+
+  return {
+    statusCode,
+    message,
+    errorMessages
+  };
+}
