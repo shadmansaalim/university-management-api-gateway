@@ -29,4 +29,4 @@ router.delete(
   AcademicDepartmentController.deleteByIdIntoDb
 );
 
-export const AcademicSemesterRoutes = router;
+export const AcademicDepartmentRoutes = router;
