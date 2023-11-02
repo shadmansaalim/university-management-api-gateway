@@ -122,7 +122,7 @@ const createAdmin = z.object({
       required_error: 'Gender is required'
     }),
 
-    bloodGroup: z.enum([...bloodGroup] as [string, ...string[]]),
+    bloodGroup: z.enum([...bloodGroup] as [string, ...string[]]).optional(),
 
     email: z
       .string({
