@@ -5,13 +5,16 @@ import { IUploadFile } from '../../../interfaces/file';
 import { AuthService } from '../../../shared/axios';
 
 const createStudent = async (req: Request): Promise<IGenericResponse> => {
-  const file = req.file as IUploadFile;
-  const uploadedImage = await FileUploadHelpers.uploadToCloudinary(file);
+  const file = req?.file as IUploadFile;
 
-  // Checking if image uploaded successfully
-  if (uploadedImage) {
-    // Setting profileImage in data
-    req.body.profileImage = uploadedImage.secure_url;
+  if (file) {
+    const uploadedImage = await FileUploadHelpers.uploadToCloudinary(file);
+
+    // Checking if image uploaded successfully
+    if (uploadedImage) {
+      // Setting profileImage in data
+      req.body.profileImage = uploadedImage.secure_url;
+    }
   }
 
   // Destructuring
@@ -58,12 +61,14 @@ const createStudent = async (req: Request): Promise<IGenericResponse> => {
 };
 
 const createFaculty = async (req: Request): Promise<IGenericResponse> => {
-  const file = req.file as IUploadFile;
+  const file = req?.file as IUploadFile;
 
-  const uploadedProfileImage = await FileUploadHelpers.uploadToCloudinary(file);
+  if (file) {
+    const uploadedProfileImage = await FileUploadHelpers.uploadToCloudinary(file);
 
-  if (uploadedProfileImage) {
-    req.body.faculty.profileImage = uploadedProfileImage.secure_url;
+    if (uploadedProfileImage) {
+      req.body.faculty.profileImage = uploadedProfileImage.secure_url;
+    }
   }
 
   const { academicDepartment, academicFaculty } = req.body.faculty;
