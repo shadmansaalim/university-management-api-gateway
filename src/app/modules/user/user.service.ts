@@ -13,7 +13,7 @@ const createStudent = async (req: Request): Promise<IGenericResponse> => {
     // Checking if image uploaded successfully
     if (uploadedImage) {
       // Setting profileImage in data
-      req.body.profileImage = uploadedImage.secure_url;
+      req.body.student.profileImage = uploadedImage.secure_url;
     }
   }
 
